@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	"go-booking-app/helper"
-	"strings"
+	"time"
 )
 
 // package level scope variable
@@ -13,7 +13,16 @@ var tripName = "Bandung - Jakarta"
 const tripTickets = 50
 
 var remainingTickets = 50
-var bookings = []string{}
+
+// create empty list of userData struct and set initial size to 0
+var bookings = make([]userData, 0)
+
+type userData struct {
+	firstName       string
+	lastName        string
+	email           string
+	numberOfTickets int
+}
 
 func main() {
 
@@ -25,7 +34,8 @@ func main() {
 		isValidName, isValidEmail, isValidTicketNumber := helper.ValidateUserInputs(firstName, lastName, email, userTicket, remainingTickets)
 
 		if isValidName && isValidEmail && isValidTicketNumber {
-			bookTicked(userTicket, firstName, lastName, email)
+			bookTicket(userTicket, firstName, lastName, email)
+			sendTicket(userTicket, firstName, lastName, email)
 
 			// call print first name function
 			firstNames := getFirstName()
@@ -63,9 +73,7 @@ func getFirstName() []string {
 
 	// _ (Blank Identifier) is used to ignore unused variable
 	for _, booking := range bookings {
-		var names = strings.Fields(booking)
-
-		listUserFirtNames = append(listUserFirtNames, names[0])
+		listUserFirtNames = append(listUserFirtNames, booking.firstName)
 	}
 	return listUserFirtNames
 }
@@ -92,12 +100,33 @@ func getUserInputs() (string, string, string, int) {
 	return firstName, lastName, email, userTicket
 }
 
-func bookTicked(userTicket int, firstName string, lastName string, email string) {
+func bookTicket(userTicket int, firstName string, lastName string, email string) {
 	remainingTickets -= userTicket
+
+	// create a map for user
+	var userData = userData{
+		firstName:       firstName,
+		lastName:        lastName,
+		email:           email,
+		numberOfTickets: userTicket,
+	}
+
 	// adds the element(s) at the end of the slice
 	// slice will grows its capacity if needed and returns the updated slice value
-	bookings = append(bookings, firstName+" "+lastName)
+	bookings = append(bookings, userData)
+	fmt.Printf("List of bookings is %v.\n", bookings)
 
 	fmt.Printf("Thank you %v %v for booking %v tickets. You will receive a confirmation email at %v.\n", firstName, lastName, userTicket, email)
 	fmt.Printf("%v tickets remaining for %v\n", remainingTickets, tripName)
+}
+
+func sendTicket(userTicket int, firstName string, lastName string, email string) {
+	// simulate 10 second sending delay
+	time.Sleep(10 * time.Second)
+
+	// Sprintf function helps to format string similar to Printf but Sprintf can be saved to variable
+	ticket := fmt.Sprintf("%v tickets for %v %v", userTicket, firstName, lastName)
+	fmt.Println("######################")
+	fmt.Printf("Sending ticket: %v \nto email address: %v\n", ticket, email)
+	fmt.Println("######################")
 }
