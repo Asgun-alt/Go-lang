@@ -1,0 +1,23 @@
+[
+    {
+        "Customer": "sample name",
+        "Customer_Email": "sample email",
+        "Trip": "Bandung-Jakarta",
+        "TicketAmount": 3,
+        "BookedAt": "2022-07-03T17:15:51.6841954+07:00"
+    },
+    {
+        "Customer": "nana",
+        "Customer_Email": "nana@gmail.com",
+        "Trip": "",
+        "TicketAmount": 2,
+        "BookedAt": "2022-07-03T18:01:18.1774102+07:00"
+    },
+    {
+        "Customer": "nono",
+        "Customer_Email": "nono@gmail.com",
+        "Trip": "",
+        "TicketAmount": 3,
+        "BookedAt": "2022-07-03T18:03:34.1146594+07:00"
+    }
+]

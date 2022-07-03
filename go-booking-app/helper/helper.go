@@ -4,10 +4,9 @@ import (
 	"strings"
 )
 
-func ValidateUserInputs(firstName string, lastName string, email string, userTicket int, remainingTickets int) (bool, bool, bool) {
-	isValidName := len(firstName) >= 2 && len(lastName) >= 2
-	isValidEmail := strings.Contains(email, "@") //check if email input have @ character
-	isValidTicketNumber := userTicket > 0 && userTicket <= remainingTickets
-	return isValidName, isValidEmail, isValidTicketNumber
+func ValidateUserInputs(customer string, customerEmail string, ticketAmount int32, remainingTickets int32) (bool, bool, bool) {
+	isValidName := len(customer) >= 2
+	isValidEmail := strings.Contains(customerEmail, "@") //check if email input have @ character
+	isValidTicketAmount := ticketAmount > 0 && ticketAmount <= remainingTickets
+	return isValidName, isValidEmail, isValidTicketAmount
 }
-
